@@ -1,0 +1,280 @@
+swagger: "2.0"
+info:
+  description: "API para gerenciar clientes, produtos e pedidos"
+  version: "1.0.0"
+  title: "OrderHubAPI"
+paths:
+  # Endpoints de Clientes
+  /customers:
+    get:
+      summary: "Obter todos os clientes"
+      responses:
+        200:
+          description: "Lista de clientes"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Customer"
+    post:
+      summary: "Criar um novo cliente"
+      parameters:
+        - name: "customer"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Customer"
+      responses:
+        201:
+          description: "Cliente criado com sucesso"
+
+  /customers/{id}:
+    get:
+      summary: "Obter um cliente pelo ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Cliente encontrado"
+          schema:
+            $ref: "#/definitions/Customer"
+        404:
+          description: "Cliente não encontrado"
+    put:
+      summary: "Atualizar um cliente"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+        - name: "customer"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Customer"
+      responses:
+        200:
+          description: "Cliente atualizado com sucesso"
+        404:
+          description: "Cliente não encontrado"
+    delete:
+      summary: "Deletar um cliente"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        204:
+          description: "Cliente deletado com sucesso"
+        404:
+          description: "Cliente não encontrado"
+
+  /customers/count:
+    get:
+      summary: "Obter o número total de clientes"
+      responses:
+        200:
+          description: "Contagem de clientes"
+          schema:
+            type: "integer"
+
+  # Endpoints de Produtos
+  /products:
+    get:
+      summary: "Obter todos os produtos"
+      responses:
+        200:
+          description: "Lista de produtos"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Product"
+    post:
+      summary: "Criar um novo produto"
+      parameters:
+        - name: "product"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Product"
+      responses:
+        201:
+          description: "Produto criado com sucesso"
+
+  /products/{id}:
+    get:
+      summary: "Obter um produto pelo ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Produto encontrado"
+          schema:
+            $ref: "#/definitions/Product"
+        404:
+          description: "Produto não encontrado"
+    put:
+      summary: "Atualizar um produto"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+        - name: "product"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Product"
+      responses:
+        200:
+          description: "Produto atualizado com sucesso"
+        404:
+          description: "Produto não encontrado"
+    delete:
+      summary: "Deletar um produto"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        204:
+          description: "Produto deletado com sucesso"
+        404:
+          description: "Produto não encontrado"
+
+  /products/count:
+    get:
+      summary: "Obter o número total de produtos"
+      responses:
+        200:
+          description: "Contagem de produtos"
+          schema:
+            type: "integer"
+
+  # Endpoints de Pedidos
+  /orders:
+    get:
+      summary: "Obter todos os pedidos"
+      responses:
+        200:
+          description: "Lista de pedidos"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Order"
+    post:
+      summary: "Criar um novo pedido"
+      parameters:
+        - name: "order"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Order"
+      responses:
+        201:
+          description: "Pedido criado com sucesso"
+
+  /orders/{id}:
+    get:
+      summary: "Obter um pedido pelo ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Pedido encontrado"
+          schema:
+            $ref: "#/definitions/Order"
+        404:
+          description: "Pedido não encontrado"
+    put:
+      summary: "Atualizar um pedido"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+        - name: "order"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Order"
+      responses:
+        200:
+          description: "Pedido atualizado com sucesso"
+        404:
+          description: "Pedido não encontrado"
+    delete:
+      summary: "Deletar um pedido"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+      responses:
+        204:
+          description: "Pedido deletado com sucesso"
+        404:
+          description: "Pedido não encontrado"
+
+  /orders/count:
+    get:
+      summary: "Obter o número total de pedidos"
+      responses:
+        200:
+          description: "Contagem de pedidos"
+          schema:
+            type: "integer"
+
+definitions:
+  Customer:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      phone:
+        type: "string"
+
+  Product:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+      description:
+        type: "string"
+      price:
+        type: "number"
+        format: "float"
+
+  Order:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      customerId:
+        type: "integer"
+      productId:
+        type: "integer"
+      quantity:
+        type: "integer"
+      totalPrice:
+        type: "number"
+        format: "float"
+      status:
+        type: "string"
+        enum: ["Pending", "Shipped", "Delivered"]
